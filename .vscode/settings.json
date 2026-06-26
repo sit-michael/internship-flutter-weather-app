@@ -1,0 +1,41 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, .packages, pubspec.lock, build.yaml, analysis_options.yaml, all_lint_rules.yaml",
+    ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
+    "readme.*": "authors, backers.md, changelog*, citation*, code_of_conduct.md, codeowners, contributing.md, contributors, copying, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors.md",
+    "*.dart": "$(capture).g.dart, $(capture).freezed.dart, $(capture).mocks.dart",
+    "app.dart": "app.locator.dart, app.router.dart, app_config.dart",
+    "mason.yaml": "mason-lock.json"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "[dart]": {
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.wordWrapColumn": 80
+  },
+  "dart.lineLength": 80,
+  "dart.checkForSdkUpdates": false,
+  "dart.openDevTools": "never",
+  "dart.devToolsLocation": "external",
+  "dart.devToolsBrowser": "chrome",
+  "dart.runPubGetOnPubspecChanges": "always",
+  "dart.flutterSdkPath": ".fvm/versions/3.44.4",
+  "dart.addSdkToTerminalPath": true,
+  "dart.flutterRememberSelectedDevice": true,
+  "dart.renameFilesWithClasses": "prompt",
+  "dart.updateImportsOnRename": true,
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
+  "cSpell.words": [
+    "lifa",
+    "Lokalise"
+  ]
+}
