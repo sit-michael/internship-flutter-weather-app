@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/data/api.dart';
+import 'package:weather/data/api.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -43,47 +43,53 @@ class _WeatherScreenState extends State<WeatherScreen> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-                onPressed: () async {
-                  final apiClient = ApiClient();
-                  await showModalBottomSheet(
-                      context: context,
-                      builder: (context) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('Stadtname eingeben:'),
-                                const SizedBox(height: 24),
-                                TextField(
-                                  decoration: InputDecoration(labelText: 'Stadt'),
-                                  onChanged: (value) => city = value,
-                                ),
-                                const SizedBox(height: 16),
-                                ElevatedButton(
-                                    onPressed: () => Navigator.of(context).pop(),
-                                    child: Text('Okay'))
-                              ],
-                            ),
-                      ));
-                  if (city.trim().isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Stadt ungültig')));
-                    return;
-                  }
-                  final cityInfo = await apiClient.getGPSFromCityName(city);
-                  final lng = cityInfo['data'][0]['longitude'];
-                  final lat = cityInfo['data'][0]['latitude'];
+              onPressed: () async {
+                final apiClient = ApiClient();
+                await showModalBottomSheet(
+                  context: context,
+                  builder: (context) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Stadtname eingeben:'),
+                        const SizedBox(height: 24),
+                        TextField(
+                          decoration: InputDecoration(labelText: 'Stadt'),
+                          onChanged: (value) => city = value,
+                        ),
+                        const SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text('Okay'),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+                if (city.trim().isEmpty) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text('Stadt ungültig')));
+                  return;
+                }
+                final cityInfo = await apiClient.getGPSFromCityName(city);
+                final lng = cityInfo['data'][0]['longitude'];
+                final lat = cityInfo['data'][0]['latitude'];
 
-                  final weatherInfo =
-                      await apiClient.getWeatherForLocation(lng, lat);
+                final weatherInfo = await apiClient.getWeatherForLocation(
+                  lng,
+                  lat,
+                );
 
-                  setState(() {
-                    temperature = weatherInfo['main']['temp'];
-                    description = weatherInfo['weather'][0]['main'];
-                    descriptionIconUrl = weatherInfo['weather'][0]['icon'];
-                  });
-                },
-                child: Text('Standort wechseln'))
+                setState(() {
+                  temperature = weatherInfo['main']['temp'];
+                  description = weatherInfo['weather'][0]['main'];
+                  descriptionIconUrl = weatherInfo['weather'][0]['icon'];
+                });
+              },
+              child: Text('Standort wechseln'),
+            ),
           ],
         ),
       ),
